@@ -76,7 +76,30 @@ class dates_object {
 	//returns true when the first date is later than the second
 	public function date_later_than($d1, $d2) {
 		
-	}
+		$regex = '/^([1-9][0-9][0-9][0-9])-([0-1][0-9])-([0-3][0-9])$/';
+		preg_match($regex, $d1, $matches1);
+		preg_match($regex, $d2, $matches2);
 	
+		if ($matches1[1] > $matches2[1]) {
+			return true;
+		}
+		
+		elseif ($matches1[1] == $matches2[1]) {
+			
+			if ($matches1[2] > $matches2[2]) {
+				return true;
+			}
+			
+			elseif ($matches1[2] == $matches2[2]) {
+				
+				if ($matches1[3] > $matches2[3]) {
+					return true;
+				}
+			}
+		
+		}
+		return false;
+	}
+//last bracket :)	
 }
 ?>
