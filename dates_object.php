@@ -73,32 +73,44 @@ class dates_object {
 		
 	
 	
-	//returns true when the first date is later than the second
+	//returns true and a string when dates are correctly formatted, returns false 
+	//if incorrectly formatted
 	public function date_later_than($d1, $d2) {
 		
+		$invalid = "invalid date format, please use: yyyy-mm-dd.";
+		$later = "d1 is later than d2";
+		$earlier = "d1 is earlier than d2";
+		
+		if ((self::check_date_format($d1) == false) || (self::check_date_format($d2) == false)) {
+			echo $invalid;
+			return false;
+		}
+		
+		//convert the string into and array with each section of the dates as values.
 		$regex = '/^([1-9][0-9][0-9][0-9])-([0-1][0-9])-([0-3][0-9])$/';
 		preg_match($regex, $d1, $matches1);
 		preg_match($regex, $d2, $matches2);
-	
+		
+		//only check the next part of the date if the year or year and months are the same.
 		if ($matches1[1] > $matches2[1]) {
-			return true;
+			return $later;
 		}
 		
 		elseif ($matches1[1] == $matches2[1]) {
 			
 			if ($matches1[2] > $matches2[2]) {
-				return true;
+				return $later;
 			}
 			
 			elseif ($matches1[2] == $matches2[2]) {
 				
 				if ($matches1[3] > $matches2[3]) {
-					return true;
+					return $later;
 				}
 			}
 		
 		}
-		return false;
+		return $earlier;
 	}
 //last bracket :)	
 }
